@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hack Yourself: Personal Strategy Workbook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50; /* Deep Navy */
+            --secondary: #34495e;
+            --accent: #e67e22; /* Action Orange */
+            --highlight: #f1c40f;
+            --bg: #f8f9fa;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #eef2f5;
+            color: #1f2937;
+            line-height: 1.5;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        .workbook-container {
+            max-width: 210mm;
+            margin: 2rem auto;
+            background: white;
+            padding: 3rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .section-break {
+            border-top: 2px dashed #cbd5e1;
+            margin: 3rem 0;
+            position: relative;
+        }
+        .section-tag {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 1rem;
+            color: #94a3b8;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: bold;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .topic-card {
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        .topic-label {
+            position: absolute;
+            top: -16px;
+            left: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+        .sub-header {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.25rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .source-pill {
+            background-color: #f1f5f9;
+            color: #64748b;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-family: 'Source Sans Pro', sans-serif;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+        textarea:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+        }
+        
+        /* Values Grid Styles */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            font-size: 0.65rem;
+            line-height: 1.3;
+        }
+        .values-category h4 {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+            border-bottom: 1px solid #e2e8f0;
+            height: 2.5em;
+            display: flex;
+            align-items: end;
+        }
+        .step-box {
+            background-color: #f0f9ff;
+            border-radius: 6px;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #bae6fd;
+        }
+        .step-number {
+            color: #0369a1;
+            font-weight: 700;
+            font-size: 0.75rem;
+            display: block;
+            margin-bottom: 0.1rem;
+        }
+        .step-text {
+            font-size: 0.7rem;
+            color: #334155;
+            line-height: 1.2;
+        }
+
+        /* Logic Model Grid */
+        .logic-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+        .logic-col {
+            background: #f8fafc;
+            padding: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        .logic-title {
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Planner Grid */
+        .planner-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(7, 1fr);
+            gap: 1px;
+            background: #e2e8f0;
+            border: 1px solid #e2e8f0;
+        }
+        .planner-cell {
+            background: white;
+            min-height: 40px;
+            padding: 4px;
+            font-size: 0.75rem;
+        }
+        .planner-header {
+            background: #f1f5f9;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;
+            font-size: 0.8rem;
+        }
+
+        /* Activity Radio Buttons */
+        .activity-type-label {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.65rem;
+            margin-right: 0.5rem;
+            color: #64748b;
+        }
+        .activity-type-label input[type="radio"] {
+            margin-right: 2px;
+        }
+
+        @media print {
+            body { background: white; }
+            .workbook-container { box-shadow: none; margin: 0; padding: 0; width: 100%; max-width: 100%; }
+            .section-break { page-break-after: always; border: none; }
+            textarea { border: 1px solid #ccc; }
+            .values-grid { grid-template-columns: repeat(5, 1fr) !important; }
+            .topic-card { page-break-inside: avoid; border: 1px solid #ccc; }
+            /* Hide the 'Add Activity' button on print */
+            .add-activity-btn { display: none !important; }
+        }
+        @media (max-width: 768px) {
+            .values-grid { grid-template-columns: repeat(2, 1fr); }
+            .logic-grid { grid-template-columns: 1fr; }
+            .workbook-container { padding: 1rem; }
+        }
+    </style>
+    <script>
+        function addActivity(topicId) {
+            const container = document.getElementById(topicId + '-activities');
+            const newRow = document.createElement('div');
+            newRow.className = 'grid grid-cols-12 gap-2 mb-2 items-center';
+            // Random ID for radio groups to be unique
+            const uniqueId = Math.random().toString(36).substr(2, 9);
+            
+            newRow.innerHTML = `
+                <div class="col-span-9">
+                    <input type="text" placeholder="New Activity..." class="w-full text-xs p-2 border border-gray-300 rounded">
+                </div>
+                <div class="col-span-3 flex flex-col justify-center bg-gray-50 p-1 rounded border border-gray-200">
+                    <label class="activity-type-label hover:text-orange-600">
+                        <input type="radio" name="act_type_${uniqueId}" value="one-time"> One-Time
+                    </label>
+                    <label class="activity-type-label hover:text-blue-600">
+                        <input type="radio" name="act_type_${uniqueId}" value="ongoing"> Ongoing
+                    </label>
+                </div>
+            `;
+            container.appendChild(newRow);
+        }
+    </script>
+</head>
+<body>
+
+<div class="workbook-container">
+
+    <!-- TITLE PAGE -->
+    <header class="text-center mb-10">
+        <h1 class="text-5xl font-bold text-slate-800 mb-2">Hack Yourself</h1>
+        <h2 class="text-2xl text-slate-600 italic font-light">A Personal Strategy Hackathon</h2>
+        <p class="mt-4 text-sm text-slate-500 uppercase tracking-widest">Values • Vision • Topic Deep Dives • Logic • Execution</p>
+    </header>
+
+    <div class="section-break"><span class="section-tag">Core Strategy</span></div>
+
+    <!-- EXPLANATION -->
+    <div class="mb-6 p-4 bg-slate-50 border-l-4 border-slate-300 italic text-slate-600 text-sm">
+        <p><strong>Why start internal?</strong> Sustainable strategy isn't built on "shoulds" or external pressure. It must be rooted in your authentic core. Before we map out tactics, deadlines, and weekly schedules, we must excavate the foundation. This section guides you from your core identity to a concrete, actionable vision for the future.</p>
+    </div>
+
+    <!-- PHASE 1: INTERNAL -->
+    <div class="card border-slate-200">
+        <div class="card-header">
+            <h3 class="text-xl font-bold text-slate-800">Phase 1: Internal</h3>
+            <span class="source-pill">Jim Collins / Simon Sinek</span>
+        </div>
+        
+        <!-- 1.1 IDENTIFY VALUES -->
+        <div class="mb-8 border-b border-gray-200 pb-6">
+            <h4 class="text-sm font-bold text-slate-700 uppercase mb-3">1.1. Identify Your Values</h4>
+            
+            <!-- VALUES MENU TOOL -->
+            <div class="bg-slate-50 p-4 rounded-lg border border-slate-100 mb-6">
+                <p class="text-xs text-slate-500 mb-3 italic font-bold">The Protocol:</p>
+                
+                <!-- STEP 1: SWEEP -->
+                <div class="step-box mb-4 bg-blue-50 border-blue-200">
+                    <span class="step-number text-lg text-blue-900">Step 1: The Intuitive Sweep (100 → 10)</span>
+                    <p class="step-text text-sm text-blue-800">Read the list below fast. Circle 10 that resonate immediately. Don't overthink it.</p>
+                </div>
+
+                <!-- THE 100 VALUES LIST -->
+                <div class="values-grid mb-6">
+                    <!-- Col 1 -->
+                    <div class="values-category">
+                        <h4>I. Identity & Character</h4>
+                        <ul class="space-y-0.5 text-slate-600">
+                            <li>1. Integrity</li>
+                            <li>2. Authenticity</li>
+                            <li>3. Courage</li>
+                            <li>4. Humility</li>
+                            <li>5. Resilience</li>
+                            <li>6. Honor</li>
+                            <li>7. Morality</li>
+                            <li>8. Wisdom</li>
+                            <li>9. Trustworthiness</li>
+                            <li>10. Faith</li>
+                            <li>11. Sincerity</li>
+                            <li>12. Self-Respect</li>
+                            <li>13. Vulnerability</li>
+                            <li>14. Decisiveness</li>
+                            <li>15. Patience</li>
+                            <li>16. Self-Control</li>
+                            <li>17. Clarity</li>
+                            <li>18. Prudence</li>
+                            <li>19. Independence</li>
+                            <li>20. Contentment</li>
+                        </ul>
+                    </div>
+                    <!-- Col 2 -->
+                    <div class="values-category">
+                        <h4>II. Growth & Mastery</h4>
+                        <ul class="space-y-0.5 text-slate-600">
+                            <li>21. Learning</li>
+                            <li>22. Ambition</li>
+                            <li>23. Innovation</li>
+                            <li>24. Education</li>
+                            <li>25. Growth</li>
+                            <li>26. Competence</li>
+                            <li>27. Improvement</li>
+                            <li>28. Perspective</li>
+                            <li>29. Resourcefulness</li>
+                            <li>30. Intellect</li>
+                            <li>31. Curiosity</li>
+                            <li>32. Mastery</li>
+                            <li>33. Openness</li>
+                            <li>34. Logic</li>
+                            <li>35. Experimentation</li>
+                            <li>36. Versatility</li>
+                            <li>37. Reflection</li>
+                            <li>38. Foresight</li>
+                            <li>39. Rationality</li>
+                            <li>40. Understanding</li>
+                        </ul>
+                    </div>
+                    <!-- Col 3 -->
+                    <div class="values-category">
+                        <h4>III. Action & Drive</h4>
+                        <ul class="space-y-0.5 text-slate-600">
+                            <li>41. Excellence</li>
+                            <li>42. Discipline</li>
+                            <li>43. Efficiency</li>
+                            <li>44. Productivity</li>
+                            <li>45. Accomplishment</li>
+                            <li>46. Impact</li>
+                            <li>47. Stewardship</li>
+                            <li>48. Responsibility</li>
+                            <li>49. Persistence</li>
+                            <li>50. Diligence</li>
+                            <li>51. Focus</li>
+                            <li>52. Action</li>
+                            <li>53. Initiative</li>
+                            <li>54. Results</li>
+                            <li>55. Punctuality</li>
+                            <li>56. Order</li>
+                            <li>57. Reliability</li>
+                            <li>58. Thoroughness</li>
+                            <li>59. Accountability</li>
+                            <li>60. Speed</li>
+                        </ul>
+                    </div>
+                    <!-- Col 4 -->
+                    <div class="values-category">
+                        <h4>IV. Relationships</h4>
+                        <ul class="space-y-0.5 text-slate-600">
+                            <li>61. Empathy</li>
+                            <li>62. Compassion</li>
+                            <li>63. Service</li>
+                            <li>64. Generosity</li>
+                            <li>65. Collaboration</li>
+                            <li>66. Justice</li>
+                            <li>67. Inclusivity</li>
+                            <li>68. Community</li>
+                            <li>69. Loyalty</li>
+                            <li>70. Altruism</li>
+                            <li>71. Connection</li>
+                            <li>72. Support</li>
+                            <li>73. Kindness</li>
+                            <li>74. Forgiveness</li>
+                            <li>75. Respect</li>
+                            <li>76. Consideration</li>
+                            <li>77. Teamwork</li>
+                            <li>78. Belonging</li>
+                            <li>79. Contribution</li>
+                            <li>80. Mentorship</li>
+                        </ul>
+                    </div>
+                    <!-- Col 5 -->
+                    <div class="values-category">
+                        <h4>V. Well-Being & Flow</h4>
+                        <ul class="space-y-0.5 text-slate-600">
+                            <li>81. Health</li>
+                            <li>82. Balance</li>
+                            <li>83. Peace</li>
+                            <li>84. Joy</li>
+                            <li>85. Gratitude</li>
+                            <li>86. Creativity</li>
+                            <li>87. Vitality</li>
+                            <li>88. Nature</li>
+                            <li>89. Freedom</li>
+                            <li>90. Solitude</li>
+                            <li>91. Beauty</li>
+                            <li>92. Security</li>
+                            <li>93. Adventure</li>
+                            <li>94. Simplicity</li>
+                            <li>95. Harmony</li>
+                            <li>96. Fun</li>
+                            <li>97. Mindfulness</li>
+                            <li>98. Self-Care</li>
+                            <li>99. Rest</li>
+                            <li>100. Sustainability</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- STEP 2: NARROW DOWN -->
+                <div class="step-box bg-orange-50 border-orange-200">
+                    <span class="step-number text-lg text-orange-900">Step 2: Narrow Down</span>
+                    <p class="step-text text-sm text-orange-800 font-bold">List 10 values, then ruthlessly cut them down to your Top 3. These are non-negotiable. (e.g., Creativity, Integrity, Freedom).</p>
+                    
+                    <div class="mt-4">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">List 10 Values Here:</label>
+                        <textarea rows="3" class="bg-white" placeholder="1... 2... 3..."></textarea>
+                    </div>
+
+                    <div class="mt-4">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Your Top 3 Non-Negotiables:</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <input type="text" placeholder="Value 1" class="bg-white border-2 border-orange-200 font-bold text-center">
+                            <input type="text" placeholder="Value 2" class="bg-white border-2 border-orange-200 font-bold text-center">
+                            <input type="text" placeholder="Value 3" class="bg-white border-2 border-orange-200 font-bold text-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.2 THE INTERSECTION -->
+        <div>
+            <h4 class="text-sm font-bold text-slate-700 uppercase mb-2">1.2. The Intersection</h4>
+            <p class="text-xs text-slate-600 mb-2">Where do your Passions (what you love), your Strengths (what you are excellent at), and Usefulness (what the world needs) overlap?</p>
+            <div class="grid grid-cols-3 gap-2 mb-2">
+                <input type="text" placeholder="Passions (Love)" class="text-xs">
+                <input type="text" placeholder="Strengths (Excel at)" class="text-xs">
+                <input type="text" placeholder="Usefulness (World needs)" class="text-xs">
+            </div>
+            <textarea rows="2" placeholder="The Intersection (My Sweet Spot)..." class="bg-blue-50 border-blue-200"></textarea>
+        </div>
+    </div>
+
+    <!-- PHASE 2: PROJECT THE FUTURE -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="text-xl font-bold text-slate-800">Phase 2: Project the Future (The Destination)</h3>
+            <span class="source-pill">Collins & Porras</span>
+        </div>
+        <div class="mb-2">
+            <h4 class="text-sm font-bold text-slate-700 uppercase mb-1">The 10-Year BHAG (Big Hairy Audacious Goal)</h4>
+            <p class="text-xs text-slate-500 mb-2">Define a goal that is 50% terrifying and 50% exhilarating. It should be a mountain you aren’t sure you can climb, but you know you want to climb.</p>
+        </div>
+        <textarea rows="3" placeholder="In 10 years, I will..."></textarea>
+    </div>
+
+    <!-- PHASE 3: ARTICULATE THE VISION -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="text-xl font-bold text-slate-800">Phase 3: Articulate the Vision (The Draft)</h3>
+            <span class="source-pill">Heath Brothers: Made to Stick</span>
+        </div>
+        <p class="text-xs text-slate-600 mb-4">A vision must be clear and sticky. Use the "Be-Do-Have" method to structure your statement.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="text-sm text-slate-600 bg-blue-50 p-4 rounded border border-blue-100">
+                <p class="mb-3 font-bold uppercase text-xs">The Formula:</p>
+                <p class="mb-4 italic">"To be <strong>[Character/Identity]</strong> who <strong>[Actions/Contribution]</strong> so that <strong>[Ultimate Impact/Legacy]</strong>."</p>
+                
+                <p class="mb-2 font-bold uppercase text-xs">Drafting Prompts:</p>
+                <ul class="list-disc list-inside text-xs mb-4 pl-1 space-y-1">
+                    <li><strong>Internal:</strong> "I envision a life where I am..."</li>
+                    <li><strong>External:</strong> "I envision a world where..."</li>
+                    <li><strong>The Bridge:</strong> "My role in creating this is..."</li>
+                </ul>
+                
+                <p class="font-bold uppercase text-xs">Example:</p>
+                <p class="text-xs italic">"To be a fearless compassionate leader (Identity) who empowers marginalized voices through storytelling (Action) so that every child sees themselves represented in media (Impact)."</p>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Your Vision Statement Draft</label>
+                <textarea rows="8" placeholder="Draft your statement here..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHASE 4: THE STRESS TEST -->
+    <div class="card bg-orange-50 border-orange-200 p-5 mb-8">
+        <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-bold text-slate-800">Phase 4: The Stress Test (Validation)</h3>
+            <span class="source-pill bg-white">Greg McKeown: Essentialism</span>
+        </div>
+        <p class="text-sm text-slate-600 mb-3">Read your draft above aloud. Does it pass these three checks?</p>
+        <div class="flex flex-col space-y-3">
+            <label class="flex items-center space-x-3 cursor-pointer">
+                <input type="checkbox" class="w-5 h-5 text-orange-600 rounded focus:ring-orange-500">
+                <div class="text-sm text-slate-700">
+                    <strong>The "Hell Yes" Test:</strong> Does reading it give you a physical sense of energy or excitement? If it feels like a chore, it’s wrong.
+                </div>
+            </label>
+            <label class="flex items-center space-x-3 cursor-pointer">
+                <input type="checkbox" class="w-5 h-5 text-orange-600 rounded focus:ring-orange-500">
+                <div class="text-sm text-slate-700">
+                    <strong>The Decision Filter:</strong> Can you use this sentence to say "No" to opportunities? (If a job offer doesn't fit the vision, the vision helps you decline it).
+                </div>
+            </label>
+            <label class="flex items-center space-x-3 cursor-pointer">
+                <input type="checkbox" class="w-5 h-5 text-orange-600 rounded focus:ring-orange-500">
+                <div class="text-sm text-slate-700">
+                    <strong>Simplicity:</strong> Can a 12-year-old understand it?
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <div class="section-break"><span class="section-tag">Implementation: Mapping</span></div>
+
+    <!-- PART 5: TOPICS (WHEEL OF LIFE) -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="text-xl font-bold text-slate-800">Part 5: Map Your Topics</h3>
+            <span class="source-pill">Paul J. Meyer</span>
+        </div>
+        <p class="text-sm text-slate-600 mb-4">Identify the key domains requiring strategic focus. Select your Top 3 to drill down below.</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div><input type="text" placeholder="1. Health" class="font-bold text-center"></div>
+            <div><input type="text" placeholder="2. Career" class="font-bold text-center"></div>
+            <div><input type="text" placeholder="3. Family" class="font-bold text-center"></div>
+            <div><input type="text" placeholder="4. Wealth" class="font-bold text-center"></div>
+            <div><input type="text" placeholder="5. Growth" class="font-bold text-center"></div>
+            <div><input type="text" placeholder="6. Recreation" class="font-bold text-center"></div>
+            <div><input type="text" placeholder="7. Environment" class="font-bold text-center"></div>
+            <div><input type="text" placeholder="8. Spirit" class="font-bold text-center"></div>
+        </div>
+    </div>
+
+    <!-- HOLISTIC DOMAINS SELECTION -->
+    <div class="card bg-blue-50 border-blue-200">
+        <div class="card-header border-blue-300">
+            <h3 class="text-xl font-bold text-slate-800">Strategic Selection: Holistic Domains</h3>
+            <span class="source-pill bg-white">Focus Strategy</span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h4 class="text-sm font-bold text-slate-700 uppercase mb-2">Instructions</h4>
+                <p class="text-xs text-slate-600 mb-4">Select <strong>three</strong> crucial life domains where transformation is needed (e.g., Vocational, Self-Care, Relational, Financial). Ensure your plan is balanced.</p>
+                
+                <h4 class="text-sm font-bold text-slate-700 uppercase mb-2">Focus Question</h4>
+                <p class="text-xs text-slate-600 italic">"Where is your current life imbalance causing the most friction or pain?"</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded border border-blue-100">
+                <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Your Top 3 Focus Domains:</label>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <span class="text-xs font-bold text-blue-800 w-6">1.</span>
+                        <input type="text" placeholder="Primary Domain" class="font-bold border-b border-slate-200 focus:border-blue-500 px-0 bg-transparent mt-0">
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-xs font-bold text-blue-800 w-6">2.</span>
+                        <input type="text" placeholder="Secondary Domain" class="font-bold border-b border-slate-200 focus:border-blue-500 px-0 bg-transparent mt-0">
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-xs font-bold text-blue-800 w-6">3.</span>
+                        <input type="text" placeholder="Tertiary Domain" class="font-bold border-b border-slate-200 focus:border-blue-500 px-0 bg-transparent mt-0">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-break"><span class="section-tag">Implementation: Deep Dives</span></div>
+
+    <!-- TOPIC 1 DEEP DIVE -->
+    <div class="topic-card">
+        <span class="topic-label">Topic 1 Strategy</span>
+        
+        <div class="mb-4">
+            <label class="block text-xs font-bold text-slate-500 uppercase">Topic Name</label>
+            <input type="text" placeholder="e.g., Physical Health" class="text-xl font-bold text-slate-800 border-b-2 border-slate-200 focus:border-blue-500 bg-transparent px-0">
+        </div>
+
+        <!-- Success Definition -->
+        <div class="sub-header">
+            <span>Define Success (The End State)</span>
+            <span class="source-pill">Goal Setting Theory</span>
+        </div>
+        <p class="text-xs text-slate-500 mb-2">Constraint: Write in present tense ("I am"), ensure it's in your control, and make it passionate.</p>
+        <textarea rows="2" placeholder="I am running 5k comfortably three times a week..."></textarea>
+
+        <!-- Define OKRs -->
+        <div class="sub-header">
+            <span>Define OKRs</span>
+            <span class="source-pill">Intel / Google</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+            <div class="text-sm text-slate-600">
+                <p class="mb-2"><strong>Instructions:</strong> For this domain, write <strong>one</strong> ambitious <strong>Objective</strong> (What is the aspiration?). Then, write <strong>one or two</strong> specific, quantitative <strong>Key Results</strong> (How will you measure it?).</p>
+                <p class="text-xs italic">Focus Question: "What is the single most impactful thing you can achieve in the next 90 days that supports your Vision?"</p>
+            </div>
+            <div>
+                <textarea rows="4" placeholder="Objective: ...&#10;KR 1: ...&#10;KR 2: ..."></textarea>
+            </div>
+        </div>
+
+        <!-- SMART Check -->
+        <div class="bg-green-50 p-4 rounded border border-green-100 mb-4">
+            <h4 class="text-sm font-bold text-green-900 uppercase mb-2">SMART Check</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="text-xs text-green-800">
+                    <p class="mb-2">Ensure every Key Result meets the <strong>SMART</strong> standard: <strong>S</strong>pecific, <strong>M</strong>easurable, <strong>A</strong>chievable, <strong>R</strong>elevant, and <strong>T</strong>ime-bound. The <strong>Relevance (R)</strong> must align with your Mission and Values.</p>
+                    <p class="italic">"Does this goal move me closer to my Vision, or is it a distraction?"</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="checkbox" class="w-4 h-4 text-green-600 rounded focus:ring-green-500">
+                    <span class="text-xs font-bold text-green-900">Passes SMART Check?</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- KEY ACTIVITIES (DYNAMIC) -->
+        <div class="sub-header">
+            <span>Key Activities</span>
+            <span class="source-pill">Prioritization</span>
+        </div>
+        <div id="topic1-activities" class="mb-4">
+            <!-- Default Rows -->
+            <div class="grid grid-cols-12 gap-2 mb-2 items-center">
+                <div class="col-span-9">
+                    <input type="text" placeholder="Activity 1..." class="w-full text-xs p-2 border border-gray-300 rounded">
+                </div>
+                <div class="col-span-3 flex flex-col justify-center bg-gray-50 p-1 rounded border border-gray-200">
+                    <label class="activity-type-label hover:text-orange-600"><input type="radio" name="t1_act1" value="one-time"> One-Time</label>
+                    <label class="activity-type-label hover:text-blue-600"><input type="radio" name="t1_act1" value="ongoing"> Ongoing</label>
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-2 mb-2 items-center">
+                <div class="col-span-9">
+                    <input type="text" placeholder="Activity 2..." class="w-full text-xs p-2 border border-gray-300 rounded">
+                </div>
+                <div class="col-span-3 flex flex-col justify-center bg-gray-50 p-1 rounded border border-gray-200">
+                    <label class="activity-type-label hover:text-orange-600"><input type="radio" name="t1_act2" value="one-time"> One-Time</label>
+                    <label class="activity-type-label hover:text-blue-600"><input type="radio" name="t1_act2" value="ongoing"> Ongoing</label>
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-2 mb-2 items-center">
+                <div class="col-span-9">
+                    <input type="text" placeholder="Activity 3..." class="w-full text-xs p-2 border border-gray-300 rounded">
+                </div>
+                <div class="col-span-3 flex flex-col justify-center bg-gray-50 p-1 rounded border border-gray-200">
+                    <label class="activity-type-label hover:text-orange-600"><input type="radio" name="t1_act3" value="one-time"> One-Time</label>
+                    <label class="activity-type-label hover:text-blue-600"><input type="radio" name="t1_act3" value="ongoing"> Ongoing</label>
+                </div>
+            </div>
+        </div>
+        <button class="add-activity-btn text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-1 px-3 rounded" onclick="addActivity('topic1')">+ Add Activity</button>
+
+        <!-- PRIORITIZATION (Must vs Nice to Have) -->
+        <div class="mt-6 border-t border-slate-100 pt-4">
+            <div class="sub-header mt-0 border-none">
+                <span>Final Prioritization</span>
+                <span class="source-pill">Essentialism</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-2">Review your activities above. Which are critical for the goal, and which are bonuses?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-red-50 p-3 rounded border border-red-100">
+                    <label class="block text-xs font-bold text-red-800 uppercase mb-1">Must Have (Non-Negotiable)</label>
+                    <textarea id="topic1-must" rows="3" class="bg-white border-red-200 text-xs" placeholder="If I only do these, I still succeed..."></textarea>
+                </div>
+                <div class="bg-teal-50 p-3 rounded border border-teal-100">
+                    <label class="block text-xs font-bold text-teal-800 uppercase mb-1">Nice to Have (Bonus)</label>
+                    <textarea rows="3" class="bg-white border-teal-200 text-xs" placeholder="I will do these only if time permits..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOPIC 2 DEEP DIVE -->
+    <div class="topic-card">
+        <span class="topic-label">Topic 2 Strategy</span>
+        
+        <div class="mb-4">
+            <label class="block text-xs font-bold text-slate-500 uppercase">Topic Name</label>
+            <input id="topic2-name" type="text" placeholder="e.g., Career Growth" class="text-xl font-bold text-slate-800 border-b-2 border-slate-200 focus:border-blue-500 bg-transparent px-0">
+        </div>
+
+        <div class="sub-header">
+            <span>Define Success (The End State)</span>
+            <span class="source-pill">Goal Setting Theory</span>
+        </div>
+        <textarea rows="2" placeholder="I am recognized as a thought leader..."></textarea>
+
+        <!-- Define OKRs -->
+        <div class="sub-header">
+            <span>Define OKRs</span>
+            <span class="source-pill">Intel / Google</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+            <div>
+                <p class="text-sm text-slate-600">Objectives & Key Results (90 Day Focus)</p>
+            </div>
+            <div>
+                <textarea rows="4" placeholder="Objective: ...&#10;KR 1: ...&#10;KR 2: ..."></textarea>
+            </div>
+        </div>
+
+        <!-- SMART Check -->
+        <div class="bg-green-50 p-4 rounded border border-green-100 mb-4">
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" class="w-4 h-4 text-green-600 rounded focus:ring-green-500">
+                <span class="text-xs font-bold text-green-900">Passes SMART Check? (Specific, Measurable, Achievable, Relevant, Time-bound)</span>
+            </div>
+        </div>
+
+        <!-- KEY ACTIVITIES (DYNAMIC) -->
+        <div class="sub-header">
+            <span>Key Activities</span>
+            <span class="source-pill">Prioritization</span>
+        </div>
+        <div id="topic2-activities" class="mb-4">
+            <div class="grid grid-cols-12 gap-2 mb-2 items-center">
+                <div class="col-span-9"><input type="text" placeholder="Activity 1..." class="w-full text-xs p-2 border border-gray-300 rounded"></div>
+                <div class="col-span-3 flex flex-col justify-center bg-gray-50 p-1 rounded border border-gray-200">
+                    <label class="activity-type-label"><input type="radio" name="t2_act1" value="one-time"> One-Time</label>
+                    <label class="activity-type-label"><input type="radio" name="t2_act1" value="ongoing"> Ongoing</label>
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-2 mb-2 items-center">
+                <div class="col-span-9"><input type="text" placeholder="Activity 2..." class="w-full text-xs p-2 border border-gray-300 rounded"></div>
+                <div class="col-span-3 flex flex-col justify-center bg-gray-50 p-1 rounded border border-gray-200">
+                    <label class="activity-type-label"><input type="radio" name="t2_act2" value="one-time"> One-Time</label>
+                    <label class="activity-type-label"><input type="radio" name="t2_act2" value="ongoing"> Ongoing</label>
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-2 mb-2 items-center">
+                <div class="col-span-9"><input type="text" placeholder="Activity 3..." class="w-full text-xs p-2 border border-gray-300 rounded"></div>
+                <div class="col-span-3 flex flex-col justify-center bg-gray-50 p-1 rounded border border-gray-200">
+                    <label class="activity-type-label"><input type="radio" name="t2_act3" value="one-time"> One-Time</label>
+                    <label class="activity-type-label"><input type="radio" name="t2_act3" value="ongoing"> Ongoing</label>
+                </div>
+            </div>
+        </div>
+        <button class="add-activity-btn text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-1 px-3 rounded" onclick="addActivity('topic2')">+ Add Activity</button>
+
+        <!-- PRIORITIZATION (Must vs Nice to Have) -->
+        <div class="mt-6 border-t border-slate-100 pt-4">
+            <div class="sub-header mt-0 border-none">
+                <span>Final Prioritization</span>
+                <span class="source-pill">Essentialism</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-2">Review your activities above. Which are critical for the goal, and which are bonuses?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-red-50 p-3 rounded border border-red-100">
+                    <label class="block text-xs font-bold text-red-800 uppercase mb-1">Must Have (Non-Negotiable)</label>
+                    <textarea id="topic2-must" rows="3" class="bg-white border-red-200 text-xs" placeholder="If I only do these, I still succeed..."></textarea>
+                </div>
+                <div class="bg-teal-50 p-3 rounded border border-teal-100">
+                    <label class="block text-xs font-bold text-teal-800 uppercase mb-1">Nice to Have (Bonus)</label>
+                    <textarea rows="3" class="bg-white border-teal-200 text-xs" placeholder="I will do these only if time permits..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOPIC 3 DEEP DIVE -->
+    <div class="topic-card">
+        <span class="topic-label">Topic 3 Strategy</span>
+        
+        <div class="mb-4">
+            <label class="block text-xs font-bold text-slate-500 uppercase">Topic Name</label>
+            <input id="topic3-name" type="text" placeholder="e.g., Financial Freedom" class="text-xl font-bold text-slate-800 border-b-2 border-slate-200 focus:border-blue-500 bg-transparent px-0">
+        </div>
+
+        <div class="sub-header">
+            <span>Define Success (The End State)</span>
+            <span class="source-pill">Goal Setting Theory</span>
+        </div>
+        <textarea rows="2" placeholder="I have 6 months of expenses saved..."></textarea>
+
+        <!-- Define OKRs -->
+        <div class="sub-header">
+            <span>Define OKRs</span>
+            <span class="source-pill">Intel / Google</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+            <div>
+                <p class="text-sm text-slate-600">Objectives & Key Results (90 Day Focus)</p>
+            </div>
+            <div>
+                <textarea rows="4" placeholder="Objective: ...&#10;KR 1: ...&#10;KR 2: ..."></textarea>
+            </div>
+        </div>
+
+        <!-- SMART Check -->
+        <div class="bg-green-50 p-4 rounded border border-green-100 mb-4">
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" class="w-4 h-4 text-green-600 rounded focus:ring-green-500">
+                <span class="text-xs font-bold text-green-900">Passes SMART Check?</span>
+            </div>
+        </div>
+
+        <!-- KEY ACTIVITIES (DYNAMIC) -->
+        <div class="sub-header">
+            <span>Key Activities</span>
+            <span class="source-pill">Prioritization</span>
+        </div>
+        <div id="topic3-activities" class="mb-4">
+            <div class="grid grid-cols-12 gap-2 mb-2 items-center">
+                <div class="col-span-9"><input type="text" placeholder="Activity 1..." class="w-full text-xs p-2 border border-gray-300 rounded"></div>
+                <div class="col-span-3 flex flex-col justify-center bg-gray-50 p-1 rounded border border-gray-200">
+                    <label class="activity-type-label"><input type="radio" name="t3_act1" value="one-time"> One-Time</label>
+                    <label class="activity-type-label"><input type="radio" name="t3_act1" value="ongoing"> Ongoing</label>
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-2 mb-2 items-center">
+                <div class="col-span-9"><input type="text" placeholder="Activity 2..." class="w-full text-xs p-2 border border-gray-300 rounded"></div>
+                <div class="col-span-3 flex flex-col justify-center bg-gray-50 p-1 rounded border border-gray-200">
+                    <label class="activity-type-label"><input type="radio" name="t3_act2" value="one-time"> One-Time</label>
+                    <label class="activity-type-label"><input type="radio" name="t3_act2" value="ongoing"> Ongoing</label>
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-2 mb-2 items-center">
+                <div class="col-span-9"><input type="text" placeholder="Activity 3..." class="w-full text-xs p-2 border border-gray-300 rounded"></div>
+                <div class="col-span-3 flex flex-col justify-center bg-gray-50 p-1 rounded border border-gray-200">
+                    <label class="activity-type-label"><input type="radio" name="t3_act3" value="one-time"> One-Time</label>
+                    <label class="activity-type-label"><input type="radio" name="t3_act3" value="ongoing"> Ongoing</label>
+                </div>
+            </div>
+        </div>
+        <button class="add-activity-btn text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-1 px-3 rounded" onclick="addActivity('topic3')">+ Add Activity</button>
+
+        <!-- PRIORITIZATION (Must vs Nice to Have) -->
+        <div class="mt-6 border-t border-slate-100 pt-4">
+            <div class="sub-header mt-0 border-none">
+                <span>Final Prioritization</span>
+                <span class="source-pill">Essentialism</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-2">Review your activities above. Which are critical for the goal, and which are bonuses?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-red-50 p-3 rounded border border-red-100">
+                    <label class="block text-xs font-bold text-red-800 uppercase mb-1">Must Have (Non-Negotiable)</label>
+                    <textarea id="topic3-must" rows="3" class="bg-white border-red-200 text-xs" placeholder="If I only do these, I still succeed..."></textarea>
+                </div>
+                <div class="bg-teal-50 p-3 rounded border border-teal-100">
+                    <label class="block text-xs font-bold text-teal-800 uppercase mb-1">Nice to Have (Bonus)</label>
+                    <textarea rows="3" class="bg-white border-teal-200 text-xs" placeholder="I will do these only if time permits..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-break"><span class="section-tag">Implementation: Strategy to Reality</span></div>
+
+    <!-- PART X: GLOBAL LOGIC MODEL (Simplified Check) -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="text-xl font-bold text-slate-800">Part 6: The Logic Check</h3>
+            <span class="source-pill">Strategy Validation</span>
+        </div>
+        <p class="text-sm text-slate-600 mb-6">Stress-test your strategy. Ensure your inputs (resources) across all topics are realistic and directly lead to your desired Impact.</p>
+
+        <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-100 text-center">
+            <h4 class="text-lg font-bold text-indigo-900 mb-4">The Critical Question</h4>
+            <p class="text-md text-indigo-800 mb-6 font-medium">"If you consistently execute your 'Must Have' activities, are you confident you will achieve the goals defined above?"</p>
+            
+            <div class="flex justify-center gap-8">
+                <label class="flex items-center space-x-2 cursor-pointer bg-white px-4 py-2 rounded shadow-sm border border-indigo-100 hover:bg-indigo-50 transition">
+                    <input type="radio" name="logic_check" value="yes" class="w-5 h-5 text-indigo-600">
+                    <span class="font-bold text-slate-700">Yes</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer bg-white px-4 py-2 rounded shadow-sm border border-indigo-100 hover:bg-indigo-50 transition">
+                    <input type="radio" name="logic_check" value="no" class="w-5 h-5 text-indigo-600">
+                    <span class="font-bold text-slate-700">No</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer bg-white px-4 py-2 rounded shadow-sm border border-indigo-100 hover:bg-indigo-50 transition">
+                    <input type="radio" name="logic_check" value="unsure" class="w-5 h-5 text-indigo-600">
+                    <span class="font-bold text-slate-700">I am not sure</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-break"><span class="section-tag">Implementation: Execution</span></div>
+
+    <!-- WEEKLY PLANNER -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="text-xl font-bold text-slate-800">Part 7: The Weekly Operating System</h3>
+            <span class="source-pill">Cal Newport: Time Blocking</span>
+        </div>
+        <p class="text-sm text-slate-600 mb-4">Anchor your "Must-Have" habits in your weekly planner. If it gets scheduled, it gets done. If you cannot find a time slot, you must face a hard truth: either the activity changes, or your other priorities do. Make it fit, or make it go.</p>
+
+        <div class="planner-grid">
+            <div class="planner-header">Time</div>
+            <div class="planner-header">Mon</div>
+            <div class="planner-header">Tue</div>
+            <div class="planner-header">Wed</div>
+            <div class="planner-header">Thu</div>
+            <div class="planner-header">Fri</div>
+            <div class="planner-header">Sat</div>
+            <div class="planner-header">Sun</div>
+
+            <!-- Morning Block -->
+            <div class="planner-cell text-center text-slate-400 flex items-center justify-center">Morning</div>
+            <div class="planner-cell"></div><div class="planner-cell"></div><div class="planner-cell"></div>
+            <div class="planner-cell"></div><div class="planner-cell"></div><div class="planner-cell"></div><div class="planner-cell"></div>
+            
+            <!-- Midday Block -->
+            <div class="planner-cell text-center text-slate-400 flex items-center justify-center">Midday</div>
+            <div class="planner-cell"></div><div class="planner-cell"></div><div class="planner-cell"></div>
+            <div class="planner-cell"></div><div class="planner-cell"></div><div class="planner-cell"></div><div class="planner-cell"></div>
+
+            <!-- Evening Block -->
+            <div class="planner-cell text-center text-slate-400 flex items-center justify-center">Evening</div>
+            <div class="planner-cell"></div><div class="planner-cell"></div><div class="planner-cell"></div>
+            <div class="planner-cell"></div><div class="planner-cell"></div><div class="planner-cell"></div><div class="planner-cell"></div>
+        </div>
+    </div>
+
+    <!-- PART 8: REFLECTION & BARRIER CHECK -->
+    <div class="bg-indigo-900 text-white rounded-lg p-8 shadow-xl">
+        <div class="flex justify-between items-center border-b border-indigo-700 pb-4 mb-6">
+            <h3 class="text-2xl font-bold">Part 8: Reflection & Barrier Check</h3>
+            <span class="bg-indigo-800 text-indigo-200 text-xs px-2 py-1 rounded uppercase font-bold">Self-Awareness</span>
+        </div>
+        
+        <p class="text-sm text-indigo-200 mb-6 leading-relaxed">
+            You now have a map. Take 5 minutes to reflect. Review your critical "Must Have" activities below. Is there something that is preventing you from achieving these goals or executing these activities?
+        </p>
+
+        <!-- Dynamic Summary Box -->
+        <div class="bg-indigo-800 rounded-lg p-6 mb-6 border border-indigo-700">
+            <h4 class="text-sm font-bold text-white uppercase mb-4 flex justify-between items-center">
+                Your Critical "Must Have" Activities
+                <button onclick="updateReflectionList()" class="bg-white text-indigo-900 text-[10px] px-3 py-1 rounded hover:bg-indigo-50 transition">Refresh List</button>
+            </h4>
+            
+            <div id="reflection-list" class="space-y-4 text-sm text-indigo-100">
+                <p class="italic text-xs opacity-50">Click "Refresh List" to load your activities from the sections above...</p>
+            </div>
+        </div>
+
+        <!-- Reflection Input -->
+        <label class="block text-xs font-bold text-indigo-300 uppercase mb-2">Identify Your Blockers:</label>
+        <textarea rows="4" class="w-full bg-indigo-950 border border-indigo-700 text-white p-4 rounded focus:ring-2 focus:ring-orange-500 focus:border-transparent placeholder-indigo-700" placeholder="What barriers (internal fear, external time constraints, habits) might get in the way? How will you mitigate them?"></textarea>
+    </div>
+
+    <!-- PART 9: ACCOUNTABILITY PARTNER -->
+    <div class="card mt-8 border-2 border-slate-800">
+        <div class="card-header border-slate-800">
+            <h3 class="text-xl font-bold text-slate-800">Part 9: The Accountability Guarantee</h3>
+            <span class="source-pill bg-slate-100 text-slate-800">The Social Contract</span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div class="md:col-span-2">
+                <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                    <strong>Instruction:</strong> Name a person in your life that can be your <strong>Guarantee</strong>. This is someone you commit to setting up a 30-minute meeting with, once a week, to go over the tasks you did in the previous week and plan the next week.
+                </p>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">My Accountability Partner is:</label>
+                        <input type="text" placeholder="Name of person..." class="font-bold text-lg border-b-2 border-slate-300 bg-transparent focus:border-slate-800 px-0 rounded-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Our Recurring Meeting Time:</label>
+                        <input type="text" placeholder="e.g., Sundays at 8:00 PM" class="border-b-2 border-slate-300 bg-transparent focus:border-slate-800 px-0 rounded-none w-1/2">
+                    </div>
+                </div>
+            </div>
+            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 text-center">
+                <div class="text-3xl mb-2">🤝</div>
+                <p class="text-xs text-slate-500 italic">"Strategy without accountability is just a wish."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CLOSING GRATITUDE -->
+    <div class="card mt-8 bg-yellow-50 border-l-4 border-yellow-400 border-t-0 border-r-0 border-b-0 rounded-none rounded-r-lg shadow-sm">
+        <div class="p-2">
+            <h3 class="text-lg font-bold text-yellow-800 mb-2 flex items-center gap-2">
+                <span>🙏</span> Closing Reflection
+            </h3>
+            <p class="text-sm text-yellow-900 leading-relaxed mb-4">
+                We have reached the finish line. Take 3 minutes to appreciate the agency you have to shape your own life. You are in a position to grow, to improve, and to fulfill (להגשים) your potential.
+            </p>
+            <label class="block text-xs font-bold text-yellow-700 uppercase mb-2">Write down what you are grateful for right now:</label>
+            <textarea rows="3" class="w-full bg-white border border-yellow-200 text-slate-700 p-3 rounded focus:ring-2 focus:ring-yellow-500 focus:border-transparent placeholder-yellow-300" placeholder="I am thankful for..."></textarea>
+        </div>
+    </div>
+
+    <div class="mt-12 text-center pb-8">
+        <button class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105" onclick="window.print()">Print Your Strategy</button>
+        <p class="text-xs text-slate-400 mt-4">Save this as a PDF or print it out to fill by hand.</p>
+    </div>
+
+</div>
+
+<script>
+    // Existing addActivity function
+    function addActivity(topicId) {
+        const container = document.getElementById(topicId + '-activities');
+        const newRow = document.createElement('div');
+        newRow.className = 'grid grid-cols-12 gap-2 mb-2 items-center';
+        const uniqueId = Math.random().toString(36).substr(2, 9);
+        newRow.innerHTML = `
+            <div class="col-span-9">
+                <input type="text" placeholder="New Activity..." class="w-full text-xs p-2 border border-gray-300 rounded">
+            </div>
+            <div class="col-span-3 flex flex-col justify-center bg-gray-50 p-1 rounded border border-gray-200">
+                <label class="activity-type-label hover:text-orange-600"><input type="radio" name="act_type_${uniqueId}" value="one-time"> One-Time</label>
+                <label class="activity-type-label hover:text-blue-600"><input type="radio" name="act_type_${uniqueId}" value="ongoing"> Ongoing</label>
+            </div>
+        `;
+        container.appendChild(newRow);
+    }
+
+    // New Reflection List function
+    function updateReflectionList() {
+        const listContainer = document.getElementById('reflection-list');
+        listContainer.innerHTML = ''; // Clear current
+
+        // IDs of the inputs
+        const topics = [
+            { nameId: 'topic1-name', mustId: 'topic1-must', defaultName: 'Topic 1' },
+            { nameId: 'topic2-name', mustId: 'topic2-must', defaultName: 'Topic 2' },
+            { nameId: 'topic3-name', mustId: 'topic3-must', defaultName: 'Topic 3' }
+        ];
+
+        let hasItems = false;
+
+        topics.forEach((t, index) => {
+            // Try to find the name input specifically. 
+            // In the HTML above I added: id="topic2-name", id="topic3-name". 
+            // Topic 1 didn't have an ID in the previous step, so we select by querySelector relative to card order as fallback
+            let topicName = t.defaultName;
+            
+            const nameInput = document.getElementById(t.nameId);
+            if (nameInput && nameInput.value) {
+                topicName = nameInput.value;
+            } else {
+                 // Fallback for Topic 1 if ID missing or empty
+                 const elName = document.querySelector(`.topic-card:nth-of-type(${index + 1}) input[type="text"]`);
+                 if(elName && elName.value) topicName = elName.value;
+            }
+
+            // Get Must Haves
+            const mustEl = document.getElementById(t.mustId);
+            const mustText = mustEl ? mustEl.value.trim() : '';
+
+            if (mustText) {
+                hasItems = true;
+                const item = document.createElement('div');
+                item.className = "border-l-4 border-orange-500 pl-3";
+                item.innerHTML = `
+                    <strong class="block text-white text-xs uppercase tracking-wide mb-1">${topicName}</strong>
+                    <p class="whitespace-pre-wrap">${mustText}</p>
+                `;
+                listContainer.appendChild(item);
+            }
+        });
+
+        if (!hasItems) {
+            listContainer.innerHTML = '<p class="text-orange-300 italic">No "Must Have" activities found. Go back and fill in the red boxes in the Topic Deep Dive sections.</p>';
+        }
+    }
+</script>
+
+</body>
+</html>
