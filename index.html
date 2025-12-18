@@ -141,6 +141,25 @@
             display: flex;
             align-items: end;
         }
+        
+        /* New Interactive Value Styles */
+        .value-item {
+            cursor: pointer;
+            padding: 1px 4px;
+            border-radius: 3px;
+            transition: all 0.1s ease;
+        }
+        .value-item:hover {
+            background-color: #e2e8f0;
+            color: var(--primary);
+        }
+        .value-item.selected {
+            background-color: var(--accent);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
         .step-box {
             background-color: #f0f9ff;
             border-radius: 6px;
@@ -225,6 +244,8 @@
             .topic-card { page-break-inside: avoid; border: 1px solid #ccc; }
             /* Hide the 'Add Activity' button on print */
             .add-activity-btn { display: none !important; }
+            /* Ensure selected items print clearly */
+            .value-item.selected { border: 1px solid #000; color: black !important; background: #ddd !important; }
         }
         @media (max-width: 768px) {
             .values-grid { grid-template-columns: repeat(2, 1fr); }
@@ -255,6 +276,20 @@
             `;
             container.appendChild(newRow);
         }
+
+        // Toggle Value Selection
+        function toggleValue(el) {
+            if (el.classList.contains('selected')) {
+                el.classList.remove('selected');
+            } else {
+                const selectedCount = document.querySelectorAll('.value-item.selected').length;
+                if (selectedCount >= 10) {
+                    alert("You can only select up to 10 values. Please deselect one to add another.");
+                    return;
+                }
+                el.classList.add('selected');
+            }
+        }
     </script>
 </head>
 <body>
@@ -272,7 +307,7 @@
 
     <!-- EXPLANATION -->
     <div class="mb-6 p-4 bg-slate-50 border-l-4 border-slate-300 italic text-slate-600 text-sm">
-        <p><strong>Why start internal?</strong> Sustainable strategy isn't built on "shoulds" or external pressure. It must be rooted in your authentic core. Before we map out tactics, deadlines, and weekly schedules, we must excavate the foundation. This section guides you from your core identity to a concrete, actionable vision for the future.</p>
+        <p><strong>Why start internally?</strong> Sustainable strategy isn't built on "shoulds" or external pressure. It must be rooted in your authentic core. Before mapping tactics, deadlines, and schedules, we need to excavate the foundation. This section guides you from your core identity to a concrete, actionable vision for the future.</p>
     </div>
 
     <!-- PHASE 1: INTERNAL -->
@@ -292,140 +327,245 @@
                 
                 <!-- STEP 1: SWEEP -->
                 <div class="step-box mb-4 bg-blue-50 border-blue-200">
-                    <span class="step-number text-lg text-blue-900">Step 1: The Intuitive Sweep (100 → 10)</span>
-                    <p class="step-text text-sm text-blue-800">Read the list below fast. Circle 10 that resonate immediately. Don't overthink it.</p>
+                    <span class="step-number text-lg text-blue-900">Step 1: The Intuitive Sweep (200 → 10)</span>
+                    <p class="step-text text-sm text-blue-800">Read the list quickly. <strong>Click up to 10 values</strong> that resonate immediately. Don't overthink.</p>
                 </div>
 
-                <!-- THE 100 VALUES LIST -->
+                <!-- THE 200 VALUES LIST -->
                 <div class="values-grid mb-6">
-                    <!-- Col 1 -->
+                    <!-- Col 1: Identity -->
                     <div class="values-category">
                         <h4>I. Identity & Character</h4>
                         <ul class="space-y-0.5 text-slate-600">
-                            <li>1. Integrity</li>
-                            <li>2. Authenticity</li>
-                            <li>3. Courage</li>
-                            <li>4. Humility</li>
-                            <li>5. Resilience</li>
-                            <li>6. Honor</li>
-                            <li>7. Morality</li>
-                            <li>8. Wisdom</li>
-                            <li>9. Trustworthiness</li>
-                            <li>10. Faith</li>
-                            <li>11. Sincerity</li>
-                            <li>12. Self-Respect</li>
-                            <li>13. Vulnerability</li>
-                            <li>14. Decisiveness</li>
-                            <li>15. Patience</li>
-                            <li>16. Self-Control</li>
-                            <li>17. Clarity</li>
-                            <li>18. Prudence</li>
-                            <li>19. Independence</li>
-                            <li>20. Contentment</li>
+                            <li class="value-item" onclick="toggleValue(this)">Integrity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Authenticity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Courage</li>
+                            <li class="value-item" onclick="toggleValue(this)">Humility</li>
+                            <li class="value-item" onclick="toggleValue(this)">Resilience</li>
+                            <li class="value-item" onclick="toggleValue(this)">Honor</li>
+                            <li class="value-item" onclick="toggleValue(this)">Morality</li>
+                            <li class="value-item" onclick="toggleValue(this)">Wisdom</li>
+                            <li class="value-item" onclick="toggleValue(this)">Trustworthiness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Faith</li>
+                            <li class="value-item" onclick="toggleValue(this)">Sincerity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Self-Respect</li>
+                            <li class="value-item" onclick="toggleValue(this)">Vulnerability</li>
+                            <li class="value-item" onclick="toggleValue(this)">Decisiveness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Patience</li>
+                            <li class="value-item" onclick="toggleValue(this)">Self-Control</li>
+                            <li class="value-item" onclick="toggleValue(this)">Clarity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Prudence</li>
+                            <li class="value-item" onclick="toggleValue(this)">Independence</li>
+                            <li class="value-item" onclick="toggleValue(this)">Contentment</li>
+                            <!-- New 20 -->
+                            <li class="value-item" onclick="toggleValue(this)">Accountability</li>
+                            <li class="value-item" onclick="toggleValue(this)">Adaptability</li>
+                            <li class="value-item" onclick="toggleValue(this)">Awareness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Bravery</li>
+                            <li class="value-item" onclick="toggleValue(this)">Calmness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Candor</li>
+                            <li class="value-item" onclick="toggleValue(this)">Character</li>
+                            <li class="value-item" onclick="toggleValue(this)">Cleanliness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Conscientiousness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Conviction</li>
+                            <li class="value-item" onclick="toggleValue(this)">Dignity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Discretion</li>
+                            <li class="value-item" onclick="toggleValue(this)">Ethicality</li>
+                            <li class="value-item" onclick="toggleValue(this)">Grace</li>
+                            <li class="value-item" onclick="toggleValue(this)">Modesty</li>
+                            <li class="value-item" onclick="toggleValue(this)">Nobility</li>
+                            <li class="value-item" onclick="toggleValue(this)">Openness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Purity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Reason</li>
+                            <li class="value-item" onclick="toggleValue(this)">Self-Reliance</li>
                         </ul>
                     </div>
-                    <!-- Col 2 -->
+                    <!-- Col 2: Growth -->
                     <div class="values-category">
                         <h4>II. Growth & Mastery</h4>
                         <ul class="space-y-0.5 text-slate-600">
-                            <li>21. Learning</li>
-                            <li>22. Ambition</li>
-                            <li>23. Innovation</li>
-                            <li>24. Education</li>
-                            <li>25. Growth</li>
-                            <li>26. Competence</li>
-                            <li>27. Improvement</li>
-                            <li>28. Perspective</li>
-                            <li>29. Resourcefulness</li>
-                            <li>30. Intellect</li>
-                            <li>31. Curiosity</li>
-                            <li>32. Mastery</li>
-                            <li>33. Openness</li>
-                            <li>34. Logic</li>
-                            <li>35. Experimentation</li>
-                            <li>36. Versatility</li>
-                            <li>37. Reflection</li>
-                            <li>38. Foresight</li>
-                            <li>39. Rationality</li>
-                            <li>40. Understanding</li>
+                            <li class="value-item" onclick="toggleValue(this)">Learning</li>
+                            <li class="value-item" onclick="toggleValue(this)">Ambition</li>
+                            <li class="value-item" onclick="toggleValue(this)">Innovation</li>
+                            <li class="value-item" onclick="toggleValue(this)">Education</li>
+                            <li class="value-item" onclick="toggleValue(this)">Growth</li>
+                            <li class="value-item" onclick="toggleValue(this)">Competence</li>
+                            <li class="value-item" onclick="toggleValue(this)">Improvement</li>
+                            <li class="value-item" onclick="toggleValue(this)">Perspective</li>
+                            <li class="value-item" onclick="toggleValue(this)">Resourcefulness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Intellect</li>
+                            <li class="value-item" onclick="toggleValue(this)">Curiosity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Mastery</li>
+                            <li class="value-item" onclick="toggleValue(this)">Openness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Logic</li>
+                            <li class="value-item" onclick="toggleValue(this)">Experimentation</li>
+                            <li class="value-item" onclick="toggleValue(this)">Versatility</li>
+                            <li class="value-item" onclick="toggleValue(this)">Reflection</li>
+                            <li class="value-item" onclick="toggleValue(this)">Foresight</li>
+                            <li class="value-item" onclick="toggleValue(this)">Rationality</li>
+                            <li class="value-item" onclick="toggleValue(this)">Understanding</li>
+                            <!-- New 20 -->
+                            <li class="value-item" onclick="toggleValue(this)">Brilliance</li>
+                            <li class="value-item" onclick="toggleValue(this)">Capability</li>
+                            <li class="value-item" onclick="toggleValue(this)">Cleverness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Cognition</li>
+                            <li class="value-item" onclick="toggleValue(this)">Comprehension</li>
+                            <li class="value-item" onclick="toggleValue(this)">Concentration</li>
+                            <li class="value-item" onclick="toggleValue(this)">Consciousness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Creation</li>
+                            <li class="value-item" onclick="toggleValue(this)">Depth</li>
+                            <li class="value-item" onclick="toggleValue(this)">Design</li>
+                            <li class="value-item" onclick="toggleValue(this)">Direction</li>
+                            <li class="value-item" onclick="toggleValue(this)">Discovery</li>
+                            <li class="value-item" onclick="toggleValue(this)">Discernment</li>
+                            <li class="value-item" onclick="toggleValue(this)">Enlightenment</li>
+                            <li class="value-item" onclick="toggleValue(this)">Experience</li>
+                            <li class="value-item" onclick="toggleValue(this)">Genius</li>
+                            <li class="value-item" onclick="toggleValue(this)">Imagination</li>
+                            <li class="value-item" onclick="toggleValue(this)">Ingenuity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Intuition</li>
+                            <li class="value-item" onclick="toggleValue(this)">Knowledge</li>
                         </ul>
                     </div>
-                    <!-- Col 3 -->
+                    <!-- Col 3: Action -->
                     <div class="values-category">
                         <h4>III. Action & Drive</h4>
                         <ul class="space-y-0.5 text-slate-600">
-                            <li>41. Excellence</li>
-                            <li>42. Discipline</li>
-                            <li>43. Efficiency</li>
-                            <li>44. Productivity</li>
-                            <li>45. Accomplishment</li>
-                            <li>46. Impact</li>
-                            <li>47. Stewardship</li>
-                            <li>48. Responsibility</li>
-                            <li>49. Persistence</li>
-                            <li>50. Diligence</li>
-                            <li>51. Focus</li>
-                            <li>52. Action</li>
-                            <li>53. Initiative</li>
-                            <li>54. Results</li>
-                            <li>55. Punctuality</li>
-                            <li>56. Order</li>
-                            <li>57. Reliability</li>
-                            <li>58. Thoroughness</li>
-                            <li>59. Accountability</li>
-                            <li>60. Speed</li>
+                            <li class="value-item" onclick="toggleValue(this)">Excellence</li>
+                            <li class="value-item" onclick="toggleValue(this)">Discipline</li>
+                            <li class="value-item" onclick="toggleValue(this)">Efficiency</li>
+                            <li class="value-item" onclick="toggleValue(this)">Productivity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Accomplishment</li>
+                            <li class="value-item" onclick="toggleValue(this)">Impact</li>
+                            <li class="value-item" onclick="toggleValue(this)">Stewardship</li>
+                            <li class="value-item" onclick="toggleValue(this)">Responsibility</li>
+                            <li class="value-item" onclick="toggleValue(this)">Persistence</li>
+                            <li class="value-item" onclick="toggleValue(this)">Diligence</li>
+                            <li class="value-item" onclick="toggleValue(this)">Focus</li>
+                            <li class="value-item" onclick="toggleValue(this)">Action</li>
+                            <li class="value-item" onclick="toggleValue(this)">Initiative</li>
+                            <li class="value-item" onclick="toggleValue(this)">Results</li>
+                            <li class="value-item" onclick="toggleValue(this)">Punctuality</li>
+                            <li class="value-item" onclick="toggleValue(this)">Order</li>
+                            <li class="value-item" onclick="toggleValue(this)">Reliability</li>
+                            <li class="value-item" onclick="toggleValue(this)">Thoroughness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Accountability</li>
+                            <li class="value-item" onclick="toggleValue(this)">Speed</li>
+                            <!-- New 20 -->
+                            <li class="value-item" onclick="toggleValue(this)">Assertiveness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Boldness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Dedication</li>
+                            <li class="value-item" onclick="toggleValue(this)">Determination</li>
+                            <li class="value-item" onclick="toggleValue(this)">Drive</li>
+                            <li class="value-item" onclick="toggleValue(this)">Endurance</li>
+                            <li class="value-item" onclick="toggleValue(this)">Energy</li>
+                            <li class="value-item" onclick="toggleValue(this)">Enterprise</li>
+                            <li class="value-item" onclick="toggleValue(this)">Enthusiasm</li>
+                            <li class="value-item" onclick="toggleValue(this)">Exploration</li>
+                            <li class="value-item" onclick="toggleValue(this)">Firmness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Force</li>
+                            <li class="value-item" onclick="toggleValue(this)">Fortitude</li>
+                            <li class="value-item" onclick="toggleValue(this)">Hard Work</li>
+                            <li class="value-item" onclick="toggleValue(this)">Heroism</li>
+                            <li class="value-item" onclick="toggleValue(this)">Hustle</li>
+                            <li class="value-item" onclick="toggleValue(this)">Immersion</li>
+                            <li class="value-item" onclick="toggleValue(this)">Industry</li>
+                            <li class="value-item" onclick="toggleValue(this)">Intensity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Leadership</li>
                         </ul>
                     </div>
-                    <!-- Col 4 -->
+                    <!-- Col 4: Relationships -->
                     <div class="values-category">
                         <h4>IV. Relationships</h4>
                         <ul class="space-y-0.5 text-slate-600">
-                            <li>61. Empathy</li>
-                            <li>62. Compassion</li>
-                            <li>63. Service</li>
-                            <li>64. Generosity</li>
-                            <li>65. Collaboration</li>
-                            <li>66. Justice</li>
-                            <li>67. Inclusivity</li>
-                            <li>68. Community</li>
-                            <li>69. Loyalty</li>
-                            <li>70. Altruism</li>
-                            <li>71. Connection</li>
-                            <li>72. Support</li>
-                            <li>73. Kindness</li>
-                            <li>74. Forgiveness</li>
-                            <li>75. Respect</li>
-                            <li>76. Consideration</li>
-                            <li>77. Teamwork</li>
-                            <li>78. Belonging</li>
-                            <li>79. Contribution</li>
-                            <li>80. Mentorship</li>
+                            <li class="value-item" onclick="toggleValue(this)">Empathy</li>
+                            <li class="value-item" onclick="toggleValue(this)">Compassion</li>
+                            <li class="value-item" onclick="toggleValue(this)">Service</li>
+                            <li class="value-item" onclick="toggleValue(this)">Generosity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Collaboration</li>
+                            <li class="value-item" onclick="toggleValue(this)">Justice</li>
+                            <li class="value-item" onclick="toggleValue(this)">Inclusivity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Community</li>
+                            <li class="value-item" onclick="toggleValue(this)">Loyalty</li>
+                            <li class="value-item" onclick="toggleValue(this)">Altruism</li>
+                            <li class="value-item" onclick="toggleValue(this)">Connection</li>
+                            <li class="value-item" onclick="toggleValue(this)">Support</li>
+                            <li class="value-item" onclick="toggleValue(this)">Kindness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Forgiveness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Respect</li>
+                            <li class="value-item" onclick="toggleValue(this)">Consideration</li>
+                            <li class="value-item" onclick="toggleValue(this)">Teamwork</li>
+                            <li class="value-item" onclick="toggleValue(this)">Belonging</li>
+                            <li class="value-item" onclick="toggleValue(this)">Contribution</li>
+                            <li class="value-item" onclick="toggleValue(this)">Mentorship</li>
+                            <!-- New 20 -->
+                            <li class="value-item" onclick="toggleValue(this)">Affection</li>
+                            <li class="value-item" onclick="toggleValue(this)">Approachability</li>
+                            <li class="value-item" onclick="toggleValue(this)">Attention</li>
+                            <li class="value-item" onclick="toggleValue(this)">Benevolence</li>
+                            <li class="value-item" onclick="toggleValue(this)">Brotherhood</li>
+                            <li class="value-item" onclick="toggleValue(this)">Camaraderie</li>
+                            <li class="value-item" onclick="toggleValue(this)">Charity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Chivalry</li>
+                            <li class="value-item" onclick="toggleValue(this)">Civility</li>
+                            <li class="value-item" onclick="toggleValue(this)">Cohesion</li>
+                            <li class="value-item" onclick="toggleValue(this)">Comfort</li>
+                            <li class="value-item" onclick="toggleValue(this)">Companionship</li>
+                            <li class="value-item" onclick="toggleValue(this)">Compatibility</li>
+                            <li class="value-item" onclick="toggleValue(this)">Concord</li>
+                            <li class="value-item" onclick="toggleValue(this)">Cooperation</li>
+                            <li class="value-item" onclick="toggleValue(this)">Cordiality</li>
+                            <li class="value-item" onclick="toggleValue(this)">Courtesy</li>
+                            <li class="value-item" onclick="toggleValue(this)">Devotion</li>
+                            <li class="value-item" onclick="toggleValue(this)">Friendship</li>
+                            <li class="value-item" onclick="toggleValue(this)">Unity</li>
                         </ul>
                     </div>
-                    <!-- Col 5 -->
+                    <!-- Col 5: Well-Being -->
                     <div class="values-category">
                         <h4>V. Well-Being & Flow</h4>
                         <ul class="space-y-0.5 text-slate-600">
-                            <li>81. Health</li>
-                            <li>82. Balance</li>
-                            <li>83. Peace</li>
-                            <li>84. Joy</li>
-                            <li>85. Gratitude</li>
-                            <li>86. Creativity</li>
-                            <li>87. Vitality</li>
-                            <li>88. Nature</li>
-                            <li>89. Freedom</li>
-                            <li>90. Solitude</li>
-                            <li>91. Beauty</li>
-                            <li>92. Security</li>
-                            <li>93. Adventure</li>
-                            <li>94. Simplicity</li>
-                            <li>95. Harmony</li>
-                            <li>96. Fun</li>
-                            <li>97. Mindfulness</li>
-                            <li>98. Self-Care</li>
-                            <li>99. Rest</li>
-                            <li>100. Sustainability</li>
+                            <li class="value-item" onclick="toggleValue(this)">Health</li>
+                            <li class="value-item" onclick="toggleValue(this)">Balance</li>
+                            <li class="value-item" onclick="toggleValue(this)">Peace</li>
+                            <li class="value-item" onclick="toggleValue(this)">Joy</li>
+                            <li class="value-item" onclick="toggleValue(this)">Gratitude</li>
+                            <li class="value-item" onclick="toggleValue(this)">Creativity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Vitality</li>
+                            <li class="value-item" onclick="toggleValue(this)">Nature</li>
+                            <li class="value-item" onclick="toggleValue(this)">Freedom</li>
+                            <li class="value-item" onclick="toggleValue(this)">Solitude</li>
+                            <li class="value-item" onclick="toggleValue(this)">Beauty</li>
+                            <li class="value-item" onclick="toggleValue(this)">Security</li>
+                            <li class="value-item" onclick="toggleValue(this)">Adventure</li>
+                            <li class="value-item" onclick="toggleValue(this)">Simplicity</li>
+                            <li class="value-item" onclick="toggleValue(this)">Harmony</li>
+                            <li class="value-item" onclick="toggleValue(this)">Fun</li>
+                            <li class="value-item" onclick="toggleValue(this)">Mindfulness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Self-Care</li>
+                            <li class="value-item" onclick="toggleValue(this)">Rest</li>
+                            <li class="value-item" onclick="toggleValue(this)">Sustainability</li>
+                            <!-- New 20 -->
+                            <li class="value-item" onclick="toggleValue(this)">Acceptance</li>
+                            <li class="value-item" onclick="toggleValue(this)">Aliveness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Amusement</li>
+                            <li class="value-item" onclick="toggleValue(this)">Appreciation</li>
+                            <li class="value-item" onclick="toggleValue(this)">Bliss</li>
+                            <li class="value-item" onclick="toggleValue(this)">Calm</li>
+                            <li class="value-item" onclick="toggleValue(this)">Cheerfulness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Composure</li>
+                            <li class="value-item" onclick="toggleValue(this)">Coolness</li>
+                            <li class="value-item" onclick="toggleValue(this)">Delight</li>
+                            <li class="value-item" onclick="toggleValue(this)">Ease</li>
+                            <li class="value-item" onclick="toggleValue(this)">Ecstasy</li>
+                            <li class="value-item" onclick="toggleValue(this)">Elegance</li>
+                            <li class="value-item" onclick="toggleValue(this)">Entertainment</li>
+                            <li class="value-item" onclick="toggleValue(this)">Equilibrium</li>
+                            <li class="value-item" onclick="toggleValue(this)">Euphoria</li>
+                            <li class="value-item" onclick="toggleValue(this)">Exhilaration</li>
+                            <li class="value-item" onclick="toggleValue(this)">Expression</li>
+                            <li class="value-item" onclick="toggleValue(this)">Fascination</li>
+                            <li class="value-item" onclick="toggleValue(this)">Fitness</li>
                         </ul>
                     </div>
                 </div>
@@ -433,7 +573,7 @@
                 <!-- STEP 2: NARROW DOWN -->
                 <div class="step-box bg-orange-50 border-orange-200">
                     <span class="step-number text-lg text-orange-900">Step 2: Narrow Down</span>
-                    <p class="step-text text-sm text-orange-800 font-bold">List 10 values, then ruthlessly cut them down to your Top 3. These are non-negotiable. (e.g., Creativity, Integrity, Freedom).</p>
+                    <p class="step-text text-sm text-orange-800 font-bold">List 10 values, then ruthlessly narrow them down to your top 3. These are non-negotiable. (e.g., Creativity, Integrity, Freedom).</p>
                     
                     <div class="mt-4">
                         <label class="block text-xs font-bold text-slate-600 uppercase mb-1">List 10 Values Here:</label>
@@ -455,7 +595,7 @@
         <!-- 1.2 THE INTERSECTION -->
         <div>
             <h4 class="text-sm font-bold text-slate-700 uppercase mb-2">1.2. The Intersection</h4>
-            <p class="text-xs text-slate-600 mb-2">Where do your Passions (what you love), your Strengths (what you are excellent at), and Usefulness (what the world needs) overlap?</p>
+            <p class="text-xs text-slate-600 mb-2">Where do your passions (what you love), strengths (what you excel at), and usefulness (what the world needs) overlap?</p>
             <div class="grid grid-cols-3 gap-2 mb-2">
                 <input type="text" placeholder="Passions (Love)" class="text-xs">
                 <input type="text" placeholder="Strengths (Excel at)" class="text-xs">
@@ -473,7 +613,7 @@
         </div>
         <div class="mb-2">
             <h4 class="text-sm font-bold text-slate-700 uppercase mb-1">The 10-Year BHAG (Big Hairy Audacious Goal)</h4>
-            <p class="text-xs text-slate-500 mb-2">Define a goal that is 50% terrifying and 50% exhilarating. It should be a mountain you aren’t sure you can climb, but you know you want to climb.</p>
+            <p class="text-xs text-slate-500 mb-2">Define a goal that's 50% terrifying and 50% exhilarating. It should be a mountain you aren't sure you can climb, but know you want to.</p>
         </div>
         <textarea rows="3" placeholder="In 10 years, I will..."></textarea>
     </div>
@@ -514,7 +654,7 @@
             <h3 class="text-lg font-bold text-slate-800">Phase 4: The Stress Test (Validation)</h3>
             <span class="source-pill bg-white">Greg McKeown: Essentialism</span>
         </div>
-        <p class="text-sm text-slate-600 mb-3">Read your draft above aloud. Does it pass these three checks?</p>
+        <p class="text-sm text-slate-600 mb-3">Read your draft aloud. Does it pass these three checks?</p>
         <div class="flex flex-col space-y-3">
             <label class="flex items-center space-x-3 cursor-pointer">
                 <input type="checkbox" class="w-5 h-5 text-orange-600 rounded focus:ring-orange-500">
@@ -545,7 +685,7 @@
             <h3 class="text-xl font-bold text-slate-800">Part 5: Map Your Topics</h3>
             <span class="source-pill">Paul J. Meyer</span>
         </div>
-        <p class="text-sm text-slate-600 mb-4">Identify the key domains requiring strategic focus. Select your Top 3 to drill down below.</p>
+        <p class="text-sm text-slate-600 mb-4">Identify key domains requiring strategic focus. Select your top 3 to drill down below.</p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div><input type="text" placeholder="1. Health" class="font-bold text-center"></div>
             <div><input type="text" placeholder="2. Career" class="font-bold text-center"></div>
@@ -620,7 +760,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
             <div class="text-sm text-slate-600">
-                <p class="mb-2"><strong>Instructions:</strong> For this domain, write <strong>one</strong> ambitious <strong>Objective</strong> (What is the aspiration?). Then, write <strong>one or two</strong> specific, quantitative <strong>Key Results</strong> (How will you measure it?).</p>
+                <p class="mb-2"><strong>Instructions:</strong> For this domain, write <strong>one</strong> ambitious <strong>Objective</strong> (the aspiration). Then, write <strong>one or two</strong> specific, quantitative <strong>Key Results</strong> (how you'll measure it).</p>
                 <p class="text-xs italic">Focus Question: "What is the single most impactful thing you can achieve in the next 90 days that supports your Vision?"</p>
             </div>
             <div>
@@ -882,7 +1022,7 @@
             <h3 class="text-xl font-bold text-slate-800">Part 6: The Logic Check</h3>
             <span class="source-pill">Strategy Validation</span>
         </div>
-        <p class="text-sm text-slate-600 mb-6">Stress-test your strategy. Ensure your inputs (resources) across all topics are realistic and directly lead to your desired Impact.</p>
+        <p class="text-sm text-slate-600 mb-6">Stress-test your strategy. Ensure your inputs (resources) across all topics are realistic and directly lead to your desired impact.</p>
 
         <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-100 text-center">
             <h4 class="text-lg font-bold text-indigo-900 mb-4">The Critical Question</h4>
@@ -913,7 +1053,7 @@
             <h3 class="text-xl font-bold text-slate-800">Part 7: The Weekly Operating System</h3>
             <span class="source-pill">Cal Newport: Time Blocking</span>
         </div>
-        <p class="text-sm text-slate-600 mb-4">Anchor your "Must-Have" habits in your weekly planner. If it gets scheduled, it gets done. If you cannot find a time slot, you must face a hard truth: either the activity changes, or your other priorities do. Make it fit, or make it go.</p>
+        <p class="text-sm text-slate-600 mb-4">Anchor your "must-have" habits in your weekly planner. If it's scheduled, it gets done. If you can't find a time slot, face the hard truth: either the activity changes, or your other priorities do. Make it fit, or let it go.</p>
 
         <div class="planner-grid">
             <div class="planner-header">Time</div>
@@ -950,7 +1090,7 @@
         </div>
         
         <p class="text-sm text-indigo-200 mb-6 leading-relaxed">
-            You now have a map. Take 5 minutes to reflect. Review your critical "Must Have" activities below. Is there something that is preventing you from achieving these goals or executing these activities?
+            You've got a map. Take 5 minutes to reflect. Review your critical "Must Have" activities below. Is anything preventing you from achieving these goals or executing these activities?
         </p>
 
         <!-- Dynamic Summary Box -->
@@ -980,7 +1120,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             <div class="md:col-span-2">
                 <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                    <strong>Instruction:</strong> Name a person in your life that can be your <strong>Guarantee</strong>. This is someone you commit to setting up a 30-minute meeting with, once a week, to go over the tasks you did in the previous week and plan the next week.
+                    <strong>Instruction:</strong> Name a person who can be your <strong>Guarantee</strong>. This is someone you'll meet with for 30 minutes once a week to go over the tasks you did in the previous week and plan the next week.
                 </p>
                 <div class="space-y-4">
                     <div>
@@ -1007,10 +1147,60 @@
                 <span>🙏</span> Closing Reflection
             </h3>
             <p class="text-sm text-yellow-900 leading-relaxed mb-4">
-                We have reached the finish line. Take 3 minutes to appreciate the agency you have to shape your own life. You are in a position to grow, to improve, and to fulfill (להגשים) your potential.
+                This is it. Take 3 minutes to appreciate something most people never realize: you have real agency to shape your life. Right now, you're positioned to grow, improve, and actualize your potential. That's worth celebrating.
             </p>
             <label class="block text-xs font-bold text-yellow-700 uppercase mb-2">Write down what you are grateful for right now:</label>
             <textarea rows="3" class="w-full bg-white border border-yellow-200 text-slate-700 p-3 rounded focus:ring-2 focus:ring-yellow-500 focus:border-transparent placeholder-yellow-300" placeholder="I am thankful for..."></textarea>
+        </div>
+    </div>
+
+    <!-- PART 10: SCIENCE & EXPERIMENTATION -->
+    <div class="card mt-8 border-2 border-purple-200">
+        <div class="card-header border-purple-200">
+            <h3 class="text-xl font-bold text-purple-900">Part 10: Science & Experimentation</h3>
+            <span class="source-pill bg-purple-100 text-purple-800">Neuroscience</span>
+        </div>
+        
+        <p class="text-sm text-slate-600 mb-4 font-bold">
+            Now that we've got a plan, let's learn from the world's best experts and experiment!
+        </p>
+
+        <div class="prose text-sm text-slate-600 mb-6">
+            <p class="mb-2">You'll explore scientific research on the best ways to build habits:</p>
+            <ul class="list-disc list-inside space-y-1 ml-2">
+                <li>How to harness your motivation.</li>
+                <li>How to maintain consistency.</li>
+                <li>How to execute goals without relying on willpower or discipline.</li>
+                <li class="italic text-xs">(Unless you want to explore those areas—we have cool science tips for that too).</li>
+            </ul>
+        </div>
+
+        <!-- Dopamine Section -->
+        <div class="bg-purple-50 p-6 rounded-lg border border-purple-100">
+            <h4 class="text-lg font-bold text-purple-900 mb-2">First: A Short Intro on Dopamine</h4>
+            <p class="text-xs font-bold text-purple-700 uppercase mb-4">Why do we need it to succeed?</p>
+            
+            <div class="flex flex-col md:flex-row gap-6 items-start">
+                <div class="flex-1">
+                    <p class="text-sm text-purple-800 mb-4 leading-relaxed">
+                        Dopamine isn't just about pleasure—it's the molecule of <strong>more</strong>. It is the universal currency of foraging and seeking. To succeed in your goals, you must learn to spike dopamine <em>during</em> the effort, not just at the finish line.
+                    </p>
+                    <div class="bg-white p-3 rounded border border-purple-200">
+                        <strong class="text-purple-900 text-xs uppercase block mb-1">Resource Spotlight:</strong>
+                        <p class="text-sm text-slate-700">Dr. Andrew Huberman: "Controlling Your Dopamine for Motivation, Focus & Satisfaction"</p>
+                        <!-- Placeholder for link/video representation -->
+                        <div class="mt-2 h-2 bg-purple-200 rounded w-full"></div>
+                        <div class="mt-1 h-2 bg-purple-200 rounded w-2/3"></div>
+                    </div>
+                </div>
+                
+                <!-- Actionable Tip Box -->
+                 <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500 shadow-sm md:w-1/3">
+                    <h5 class="font-bold text-purple-900 text-sm mb-2">🧪 Experiment #1</h5>
+                    <p class="text-xs text-slate-600 mb-2">Next time you feel friction starting a task, don't force it. Instead, focus on the immediate sensation of *starting*.</p>
+                    <textarea rows="3" class="w-full text-xs bg-purple-50 border-purple-200" placeholder="My notes on this lecture..."></textarea>
+                </div>
+            </div>
         </div>
     </div>
 
